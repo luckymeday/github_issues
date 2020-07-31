@@ -15,6 +15,7 @@ function App() {
   const [repo, setRepo] = useState("");
   const [pageNum, setPageNum] = useState(1);
   const [issues, setIssues] = useState([]);
+  const [modalIssue, setModalIssue] = useState(null)
 
   const [searchTerm, setSearchTerm] = useState("facebook/react");
 
@@ -42,6 +43,7 @@ function App() {
         const data = await response.json();
         if (response.status === 200) {
           setIssues(data);
+          console.log(data)
         } else {
           setErrorMsg(data.message);
         }
@@ -71,10 +73,13 @@ function App() {
         {loading ? (
           <ClipLoader color="#f86c6b" size={150} loading={true} />
         ) : (
-          <IssueList issues={issues} />
-        )}
+            <IssueList issues={issues} />
+          )}
 
-        <IssueModal />
+        <IssueModal issue={modalIssue} />
+
+
+        
       </Container>
     </div>
   );
